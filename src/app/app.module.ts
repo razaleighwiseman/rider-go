@@ -13,12 +13,14 @@ import { SignUp } from '../pages/sign-up/sign-up';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { Facebook } from '@ionic-native/facebook';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCrLyhU7-XPOq3fjNjbh2UR2qg_5SbKzCo",
   authDomain: "go-ride-94168.firebaseapp.com",
   databaseURL: "https://go-ride-94168.firebaseio.com",
-  storageBucket: "",
+  projectId: "go-ride-94168",
+  storageBucket: "go-ride-94168.appspot.com",
   messagingSenderId: '974812167429'
 };
 
@@ -48,7 +50,8 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Facebook
   ]
 })
 export class AppModule {}

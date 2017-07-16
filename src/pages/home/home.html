@@ -1,13 +1,21 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="myapp">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>    
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addSong()">
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>      
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="signOut()">
+        <ion-icon name="power"></ion-icon>
+      </button>
+    </ion-buttons>          
   </ion-navbar>
 </ion-header>
 

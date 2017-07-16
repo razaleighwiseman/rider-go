@@ -51,7 +51,9 @@ export class SignUp {
               message: err.message,
               buttons: ['OK']
             });
-            alert.present();      
+        alert.present();      
+
+         console.log(err);
       });
   }  
 

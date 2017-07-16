@@ -29,6 +29,6 @@
       <ion-input type="password" [(ngModel)]="signupData.passwordRetyped"></ion-input>
     </ion-item>
   </ion-list>
-  <button full ion-button (click)="signup()">Signup</button>  
+  <button full ion-button (click)="signup()" [disabled]="!signupData.email || !signupData.password || !signupData.passwordRetyped">Signup</button>  
 
 </ion-content>

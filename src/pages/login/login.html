@@ -4,26 +4,37 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
 
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>E-Mail</ion-label>
-      <ion-input type="email" [(ngModel)]="loginData.email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="loginData.password"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button full ion-button (click)="login()">Login</button>
-  <a href="#" (click)="signup()">Signup for an Account</a>
+<ion-content scroll="false">
+  <div class="splash-info">
+    <div class="splash-logo"></div>
+    <div class="splash-intro">
+      Rider Go
+    </div>
+  </div>  
+  <div padding>
+    <ion-list>
+      <ion-item>
+        <ion-label floating>E-Mail</ion-label>
+        <ion-input type="email" [(ngModel)]="loginData.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="loginData.password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button block (click)="login()" [disabled]="!loginData.email || !loginData.password">Sign In</button>
+    <div class="login-options"></div>
+    <button ion-button block icon-left color="facebook" (click)="signInWithFacebook()">
+      <ion-icon name="logo-facebook"></ion-icon>
+      Connect with Facebook
+    </button> 
+  </div>
 </ion-content>
+
+<ion-footer>
+  <button ion-button full clear (click)="signup()">
+    Signup for an Account
+  </button>
+   <!--<a href="#" (click)="signup()">Signup for an Account</a>-->
+</ion-footer>

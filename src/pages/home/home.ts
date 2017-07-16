@@ -4,6 +4,7 @@ import { CreateBill } from '../create-bill/create-bill';
 import { DateFormatPipe } from 'angular2-moment';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'page-home',
@@ -18,7 +19,9 @@ export class HomePage {
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public actionSheetCtrl: ActionSheetController,
-    afDB: AngularFireDatabase) 
+    afDB: AngularFireDatabase,
+    private auth: AngularFireAuth
+  ) 
   {
     this.items = afDB.list('/cuisines');
     this.songs = afDB.list('/songs');
@@ -119,5 +122,9 @@ export class HomePage {
 
   newBill(){
     this.navCtrl.push(CreateBill);
+  }  
+
+  signOut() {
+    this.auth.auth.signOut();
   }  
 }

@@ -1,1 +1,37 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-split-pane>
+
+  <!-- logged in menu -->
+  <ion-menu id="loggedInMenu" [content]="content">
+
+    <ion-header>
+        <ion-list>
+            <ion-item>
+                <ion-avatar item-start>
+                <img [src]="user.photoURL">
+                </ion-avatar>
+                <h2>{{ user.displayName }}</h2>
+                <p>{{ user.email }}</p>
+            </ion-item>
+        </ion-list>
+    </ion-header>
+
+    <ion-content class="outer-content">
+
+      <ion-list>
+        <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
+          <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+          {{p.title}}
+        </button>
+        <button ion-item menuClose (click)="logout()">
+          <ion-icon item-start name="log-out"></ion-icon>
+          Logout
+        </button>        
+      </ion-list>
+
+    </ion-content>
+
+  </ion-menu>
+
+    <!-- main navigation -->
+    <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main name="app"></ion-nav>
+</ion-split-pane>
