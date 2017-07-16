@@ -31,9 +31,9 @@ export class MyApp {
   loggedInPages: PageInterface[] = [
     { title: 'Home', name: 'HomePage', component: HomePage, icon: 'home' }
   ];  
-  rootPage:any = HomePage;
+  rootPage: any;
+  
   user = {displayName: null, email: null, photoURL: null};
-  displayName;
 
   constructor(
     platform: Platform, 
