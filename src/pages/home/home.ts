@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { CreateBill } from '../create-bill/create-bill';
-import { DateFormatPipe } from 'angular2-moment';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+
+import { Geolocation } from '@ionic-native/geolocation';
+
+declare var google;
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
   items: FirebaseListObservable<any[]>;
   songs: FirebaseListObservable<any>;
   billList: FirebaseListObservable<any>;
@@ -20,7 +25,8 @@ export class HomePage {
     public alertCtrl: AlertController, 
     public actionSheetCtrl: ActionSheetController,
     afDB: AngularFireDatabase,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    public geolocation: Geolocation
   ) 
   {
     this.items = afDB.list('/cuisines');
@@ -28,7 +34,61 @@ export class HomePage {
     this.billList = afDB.list('/bills');
   }
 
-  addSong(){
+  ionViewDidLoad() {
+    this.loadMap();
+    console.log('homepage')
+  }
+  
+  loadMap() {
+ 
+    this.geolocation.getCurrentPosition().then((position) => {
+ 
+      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+ 
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      //initiate the marker
+      this.addMarker();
+ 
+    }, (err) => {
+      console.log(err);
+    });
+ 
+  }
+  
+  addMarker(){
+  
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: this.map.getCenter()
+    });
+  
+    let content = "<h4>Pick-up Point</h4>";          
+  
+    this.addInfoWindow(marker, content);
+  
+  }  
+
+  addInfoWindow(marker, content){
+  
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+  
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  
+  }  
+
+  addSong() {
     let prompt = this.alertCtrl.create({
       title: 'Song Name',
       message: "Enter a name for this new song you're so keen on adding",
@@ -122,9 +182,5 @@ export class HomePage {
 
   newBill(){
     this.navCtrl.push(CreateBill);
-  }  
-
-  signOut() {
-    this.auth.auth.signOut();
   }  
 }

@@ -53,7 +53,10 @@ export class MyApp {
         //set profile attributes
         this.user.displayName = auth.displayName;
         this.user.email = auth.email;
-        this.user.photoURL = auth.photoURL;     
+        if (!auth.photoURL)
+          this.user.photoURL = "assets/img/avatar.png";
+        else
+          this.user.photoURL = auth.photoURL;     
       }
     });    
     platform.ready().then(() => {

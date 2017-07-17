@@ -14,6 +14,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
+import { Geolocation } from '@ionic-native/geolocation';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCrLyhU7-XPOq3fjNjbh2UR2qg_5SbKzCo",
@@ -50,8 +51,9 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
+    Facebook,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Facebook
   ]
 })
 export class AppModule {}
