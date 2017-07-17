@@ -1,11 +1,21 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import { Platform, NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { CreateBill } from '../create-bill/create-bill';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Geolocation } from '@ionic-native/geolocation';
+
+import {
+ GoogleMaps,
+ GoogleMap,
+ GoogleMapsEvent,
+ LatLng,
+ CameraPosition,
+ MarkerOptions,
+ Marker
+} from '@ionic-native/google-maps';
 
 declare var google;
 
@@ -21,11 +31,13 @@ export class HomePage {
   billList: FirebaseListObservable<any>;
 
   constructor(
+    public platform: Platform,
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public actionSheetCtrl: ActionSheetController,
     afDB: AngularFireDatabase,
     private auth: AngularFireAuth,
+    private googleMaps: GoogleMaps,
     public geolocation: Geolocation
   ) 
   {
@@ -35,11 +47,25 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.loadMap();
-    console.log('homepage')
+    if (this.platform.is('core') || this.platform.is('mobileweb'))
+      this.loadMapBrowser();
+    else
+      this.loadMapMobile();
+  }
+
+  loadMapMobile(){
+      
+    let location = new LatLng(-34.9290,138.6010);
+
+    this.map = new GoogleMap('map');    
+
+    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+        console.log('Map is ready!');
+    });
+
   }
   
-  loadMap() {
+  loadMapBrowser() {
  
     this.geolocation.getCurrentPosition().then((position) => {
  
@@ -58,6 +84,12 @@ export class HomePage {
  
     }, (err) => {
       console.log(err);
+        let alert = this.alertCtrl.create({
+              title: 'Error',
+              message: err.message,
+              buttons: ['OK']
+            });
+        alert.present();       
     });
  
   }

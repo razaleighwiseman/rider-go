@@ -35,7 +35,7 @@ export class SignUp {
       let alert = this.alertCtrl.create({
         title: 'Error',
         message: 'Your password and your re-entered password does not match each other.',
-	buttons: ['OK']
+	      buttons: ['OK']
       });
       alert.present();
       return;
