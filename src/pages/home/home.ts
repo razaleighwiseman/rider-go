@@ -55,9 +55,41 @@ export class HomePage {
 
   loadMapMobile(){
       
-    let location = new LatLng(-34.9290,138.6010);
+    let location = new LatLng(3.0313768,101.4396042);
 
-    this.map = new GoogleMap('map');    
+    let position: CameraPosition = {
+      target: location,
+      zoom: 18,
+      tilt: 30,
+      'bearing': 50
+    };    
+
+    //this.map = new GoogleMap('map');    
+
+      this.map = new GoogleMap('map', {
+        'mapType': 'MAP_TYPE_ROADMAP',
+        'controls': {
+          'compass': true,
+          'myLocationButton': true,
+          'indoorPicker': true,
+          'zoom': true
+        },
+        'gestures': {
+          'scroll': true,
+          'tilt': true,
+          'rotate': true,
+          'zoom': true
+        },
+        'styles': [],
+        'camera': position,
+        'preferences': {
+          'zoom': {
+            'minZoom': 0,
+            'maxZoom': 25
+          },
+          'building': false
+        }
+      });
 
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
         console.log('Map is ready!');
