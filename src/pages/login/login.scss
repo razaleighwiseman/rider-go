@@ -23,6 +23,26 @@ page-login {
 
   .login-options {
     padding-top: 10px;   
+  }
+
+  .content {
+    background-color: color($colors, myapp);
+  }   
+
+  .list, .input{
+    background: transparent;
+  }      
+
+  ion-item {
+      border-radius: 2px;
+  }    
+
+  .item-block {
+      margin-bottom: 20px; 
+  } 
+
+  button {
+      min-height: 4.4rem;  
   }    
 
 }

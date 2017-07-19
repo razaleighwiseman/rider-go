@@ -215,4 +215,8 @@ export class HomePage {
   newBill(){
     this.navCtrl.push(CreateBill);
   }  
+
+  logout() {
+    this.auth.auth.signOut();
+  }  
 }

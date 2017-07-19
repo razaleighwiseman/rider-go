@@ -15,12 +15,10 @@
   <div padding>
     <ion-list>
       <ion-item>
-        <ion-label floating>E-Mail</ion-label>
-        <ion-input type="email" [(ngModel)]="loginData.email"></ion-input>
+        <ion-input type="email" [(ngModel)]="loginData.email" placeholder="E-mail" clearInput required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="loginData.password"></ion-input>
+        <ion-input type="password" [(ngModel)]="loginData.password" placeholder="Password" clearInput required></ion-input>
       </ion-item>
     </ion-list>
     <button ion-button block (click)="login()" [disabled]="!loginData.email || !loginData.password">Sign In</button>
@@ -33,7 +31,7 @@
 </ion-content>
 
 <ion-footer>
-  <button ion-button full clear (click)="signup()">
+  <button ion-button full clear color="light" (click)="signup()">
     Signup for an Account
   </button>
    <!--<a href="#" (click)="signup()">Signup for an Account</a>-->
