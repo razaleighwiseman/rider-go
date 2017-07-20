@@ -55,19 +55,18 @@ export class HomePage {
 
   loadMapMobile(){
       
-    let location = new LatLng(3.0313768,101.4396042);
+    this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {    
 
-    let position: CameraPosition = {
-      target: location,
-      zoom: 18,
-      tilt: 30,
-      'bearing': 50
-    };    
+      let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
 
-    //this.map = new GoogleMap('map');    
+      let position: CameraPosition = {
+        target: location,
+        zoom: 18,
+        tilt: 30
+      };     
 
       this.map = new GoogleMap('map', {
-        'mapType': 'MAP_TYPE_ROADMAP',
+        'mapType': 'MAP_TYPE_NORMAL',
         'controls': {
           'compass': true,
           'myLocationButton': true,
@@ -91,10 +90,30 @@ export class HomePage {
         }
       });
 
-    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-        console.log('Map is ready!');
-    });
+      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+          console.log('Map is ready!');
+      });
 
+      // create new marker
+      let markerOptions: MarkerOptions = {
+        position: location,
+        title: 'My Location'
+      };      
+
+      const marker: Marker = this.map.addMarker(markerOptions)
+        .then((marker: Marker) => {
+            marker.showInfoWindow();
+          });
+                
+    }).catch((error) => {
+      console.log('Error getting location', error);
+      let alert = this.alertCtrl.create({
+            title: 'Error',
+            message: error.message,
+            buttons: ['OK']
+          });
+      alert.present();       
+    });
   }
   
   loadMapBrowser() {
