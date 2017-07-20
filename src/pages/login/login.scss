@@ -26,20 +26,25 @@ page-login {
   }
 
   .content {
-    background-color: color($colors, myapp);
+    //background-color: color($colors, myapp);
+    background-image: url('/assets/img/ride-bg2-1.jpg');
+    background-repeat: no-repeat;
+    //background-size: 412px 732px;
+    background-size: cover;
   }   
 
-  .list, .input{
+  .list, .item, .input{
     background: transparent;
+    color: color($colors, primary);
   }      
 
   ion-item {
       border-radius: 2px;
   }    
 
-  .item-block {
+  /*.item-block {
       margin-bottom: 20px; 
-  } 
+  } */
 
   button {
       min-height: 4.4rem;  
