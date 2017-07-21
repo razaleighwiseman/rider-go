@@ -125,6 +125,9 @@ export class HomePage {
       let mapOptions = {
         center: latLng,
         zoom: 15,
+        streetViewControl: false,
+        fullscreenControl: false,
+        mapTypeControl: false,        
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
  
@@ -148,9 +151,11 @@ export class HomePage {
   addMarker(){
   
     let marker = new google.maps.Marker({
+      clickable: true,
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+      position: this.map.getCenter(),
+      icon: "assets/img/motor.png",
     });
   
     let content = "<h4>Pick-up Point</h4>";          
