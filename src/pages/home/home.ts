@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Platform, NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import { Platform, NavController, AlertController, ActionSheetController, MenuController } from 'ionic-angular';
 import { CreateBill } from '../create-bill/create-bill';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -14,7 +14,9 @@ import {
  LatLng,
  CameraPosition,
  MarkerOptions,
- Marker
+ Marker,
+ Geocoder, 
+ GeocoderRequest
 } from '@ionic-native/google-maps';
 
 declare var google;
@@ -35,6 +37,7 @@ export class HomePage {
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public actionSheetCtrl: ActionSheetController,
+    public menu: MenuController,
     afDB: AngularFireDatabase,
     private auth: AngularFireAuth,
     private googleMaps: GoogleMaps,
@@ -49,8 +52,25 @@ export class HomePage {
   ionViewDidLoad() {
     if (this.platform.is('core') || this.platform.is('mobileweb'))
       this.loadMapBrowser();
-    else
+    else {
       this.loadMapMobile();
+    // handle side menu issue...
+      let loginMenu = this.menu.get('loggedInMenu');
+
+      if (loginMenu) {
+        loginMenu.ionOpen.subscribe(() => {
+          if (this.map) {
+            this.map.setClickable(false);
+          }
+        });
+
+        loginMenu.ionClose.subscribe(() => {
+          if (this.map) {
+            this.map.setClickable(true);
+          }
+        });
+      }  
+    }  
   }
 
   loadMapMobile(){
@@ -92,19 +112,35 @@ export class HomePage {
 
       this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
           console.log('Map is ready!');
+
+          this.map.addMarker(markerOptions).then((marker: Marker) => {
+            marker.showInfoWindow();
+          });
+
+          this.map.addMarker(riderMarker).then((marker: Marker) => {
+            marker.showInfoWindow();
+          });          
+          
       });
 
       // create new marker
       let markerOptions: MarkerOptions = {
         position: location,
-        title: 'My Location'
-      };      
+        title: 'Pick-up Point',
+        icon: "http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-pushpin.png",
+        draggable: true,
+        snippet: "Drag to change pickup point"
+      };
+      
+      let rider: LatLng = new LatLng(3.037216,101.442840);
+      
+      let riderMarker: MarkerOptions = {
+        position: rider,
+        title: 'Hadi',
+        snippet: "I am a good rider",
+        icon: "https://www.google.com/intl/en_us/mapfiles/ms/icons/motorcycling.png"
+      };   
 
-      const marker: Marker = this.map.addMarker(markerOptions)
-        .then((marker: Marker) => {
-            marker.showInfoWindow();
-          });
-                
     }).catch((error) => {
       console.log('Error getting location', error);
       let alert = this.alertCtrl.create({
@@ -155,10 +191,10 @@ export class HomePage {
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: this.map.getCenter(),
-      icon: "assets/img/motor.png",
+      icon: "http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-pushpin.png"
     });
   
-    let content = "<h4>Pick-up Point</h4>";          
+    let content = "Pick-up Point";          
   
     this.addInfoWindow(marker, content);
   
