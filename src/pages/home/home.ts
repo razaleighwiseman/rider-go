@@ -127,7 +127,7 @@ export class HomePage {
       let markerOptions: MarkerOptions = {
         position: location,
         title: 'Pick-up Point',
-        icon: "http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-pushpin.png",
+        icon: "www/assets/img/pickup-point.png",
         draggable: true,
         snippet: "Drag to change pickup point"
       };
@@ -138,7 +138,8 @@ export class HomePage {
         position: rider,
         title: 'Hadi',
         snippet: "I am a good rider",
-        icon: "https://www.google.com/intl/en_us/mapfiles/ms/icons/motorcycling.png"
+        icon: "www/assets/img/motorcycle.png"
+        //icon: "https://www.google.com/intl/en_us/mapfiles/ms/icons/motorcycling.png"
       };   
 
     }).catch((error) => {
@@ -191,7 +192,7 @@ export class HomePage {
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: this.map.getCenter(),
-      icon: "http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-pushpin.png"
+      icon: "assets/img/marker-point.png"
     });
   
     let content = "Pick-up Point";          
