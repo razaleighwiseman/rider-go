@@ -162,6 +162,11 @@ export class HomePage {
     this.geolocation.getCurrentPosition().then((position) => {
  
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      let usersLocation = {
+          lat: position.coords.latitude, 
+          lng: position.coords.longitude
+      };
  
       let mapOptions = {
         center: latLng,
@@ -178,7 +183,7 @@ export class HomePage {
       this.addMarker();
 
       //map riders locations
-      this.locations.load().then(
+      this.locations.load(usersLocation).then(
         data => {
           console.log(data);
 
@@ -232,7 +237,7 @@ export class HomePage {
  
     this.markers.push(marker);
     
-    let content = '<strong>' + location.title + '</strong><br>' + location.distance +  " miles";          
+    let content = '<strong>' + location.title + '</strong><br>' + location.distance +  " km";          
   
     this.addInfoWindow(marker, content);    
  

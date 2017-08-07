@@ -11,7 +11,7 @@ export class Locations {
  
     }
  
-    load(){
+    load(usersLocation) {
  
         if(this.data){
             return Promise.resolve(this.data);
@@ -21,7 +21,7 @@ export class Locations {
  
             this.http.get('assets/data/locations.json').map(res => res.json()).subscribe(data => {
  
-                this.data = this.applyHaversine(data.locations);
+                this.data = this.applyHaversine(usersLocation, data.locations);
  
                 this.data.sort((locationA, locationB) => {
                     return locationA.distance - locationB.distance;
@@ -34,12 +34,12 @@ export class Locations {
  
     }
  
-    applyHaversine(locations){
+    applyHaversine(usersLocation, locations) {
  
-        let usersLocation = {
+        /*let usersLocation = {
             lat: 3.036910, 
             lng: 101.439445
-        };
+        };*/
  
         locations.map((location) => {
  
@@ -51,14 +51,14 @@ export class Locations {
             location.distance = this.getDistanceBetweenPoints(
                 usersLocation,
                 placeLocation,
-                'miles'
+                'km'
             ).toFixed(2);
         });
  
         return locations;
     }
  
-    getDistanceBetweenPoints(start, end, units){
+    getDistanceBetweenPoints(start, end, units) {
  
         let earthRadius = {
             miles: 3958.8,
@@ -84,7 +84,7 @@ export class Locations {
  
     }
  
-    toRad(x){
+    toRad(x) {
         return x * Math.PI / 180;
     }
  
