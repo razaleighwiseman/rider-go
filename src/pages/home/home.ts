@@ -7,6 +7,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Geolocation } from '@ionic-native/geolocation';
 
+import { Locations } from '../../providers/locations';
+
 import {
  GoogleMaps,
  GoogleMap,
@@ -28,6 +30,7 @@ declare var google;
 export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  markers: any = [];
   items: FirebaseListObservable<any[]>;
   songs: FirebaseListObservable<any>;
   billList: FirebaseListObservable<any>;
@@ -41,7 +44,8 @@ export class HomePage {
     afDB: AngularFireDatabase,
     private auth: AngularFireAuth,
     private googleMaps: GoogleMaps,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
+    public locations: Locations
   ) 
   {
     this.items = afDB.list('/cuisines');
@@ -127,7 +131,7 @@ export class HomePage {
       let markerOptions: MarkerOptions = {
         position: location,
         title: 'Pick-up Point',
-        icon: "www/assets/img/pickup-point.png",
+        icon: "www/assets/img/marker-point.png",
         draggable: true,
         snippet: "Drag to change pickup point"
       };
@@ -138,7 +142,7 @@ export class HomePage {
         position: rider,
         title: 'Hadi',
         snippet: "I am a good rider",
-        icon: "www/assets/img/motorcycle.png"
+        icon: "www/assets/img/motorcycling.png"
         //icon: "https://www.google.com/intl/en_us/mapfiles/ms/icons/motorcycling.png"
       };   
 
@@ -172,6 +176,19 @@ export class HomePage {
 
       //initiate the marker
       this.addMarker();
+
+      //map riders locations
+      this.locations.load().then(
+        data => {
+          console.log(data);
+
+          let locations = data;
+
+          for(let location of locations){
+              this.motorMarker(location);
+          }          
+        }
+      );
  
     }, (err) => {
       console.log(err);
@@ -199,6 +216,26 @@ export class HomePage {
   
     this.addInfoWindow(marker, content);
   
+  }
+  
+  motorMarker(location: any): void {
+ 
+    let latLng = new google.maps.LatLng(location.latitude, location.longitude);
+ 
+    let marker = new google.maps.Marker({
+      clickable: true,
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng,
+      icon: "assets/img/motorcycling.png"
+    });
+ 
+    this.markers.push(marker);
+    
+    let content = '<strong>' + location.title + '</strong><br>' + location.distance +  " miles";          
+  
+    this.addInfoWindow(marker, content);    
+ 
   }  
 
   addInfoWindow(marker, content){
@@ -211,7 +248,7 @@ export class HomePage {
       infoWindow.open(this.map, marker);
     });
   
-  }  
+  }
 
   addSong() {
     let prompt = this.alertCtrl.create({

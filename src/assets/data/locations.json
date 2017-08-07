@@ -1,0 +1,50 @@
+{
+    "locations": [
+ 
+        {
+            "title": "Teluk Pulai Train",
+            "latitude": 3.040000,
+            "longitude": 101.431667
+        },
+        {
+            "title": "Rider 1",
+            "latitude": 3.039591,
+            "longitude": 101.429225
+        },
+        {
+            "title": "Rider 2",
+            "latitude": 3.040748,
+            "longitude": 101.426607
+        },
+        {
+            "title": "Rider 3",
+            "latitude": 3.042848,
+            "longitude": 101.431371
+        },
+        {
+            "title": "Rider 4",
+            "latitude": 3.043148,
+            "longitude": 101.435598
+        },
+        {
+            "title": "Rider 5",
+            "latitude": 3.042512,
+            "longitude": 101.441917
+        },
+        {
+            "title": "Rider 6",
+            "latitude": 3.037984,
+            "longitude": 101.440834
+        },
+        {
+            "title": "Rider 7",
+            "latitude": 3.037185,
+            "longitude": 101.446359
+        },
+        {
+            "title": "Rider 8",
+            "latitude": 3.039843,
+            "longitude": 101.411512
+        }
+    ]
+}
