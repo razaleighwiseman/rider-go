@@ -25,9 +25,7 @@ export class SignUp {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private afAuth: AngularFireAuth
-  ) {
-    this.signupData.email = this.navParams.get('email');
-  }
+  ) {}
 
   signup() {
     if(this.signupData.password !== this.signupData.passwordRetyped) {

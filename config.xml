@@ -87,6 +87,9 @@
     <plugin name="cordova-plugin-googlemaps" spec="^1.4.3">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDjfMrskRiwdIocVRxQ_6zx20vgoNu7RQ4" />
     </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="222107218201-5hthuq2dv7me3a7t31o8h2su1bkd73ub.apps.googleusercontent.com" />
+    </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />

@@ -4,15 +4,15 @@
   <ion-menu id="loggedInMenu" [content]="content">
 
     <ion-header>
-        <ion-list>
-            <ion-item>
-                <ion-avatar item-start>
-                <img [src]="user.photoURL">
-                </ion-avatar>
-                <h2>{{ user.displayName }}</h2>
-                <p>{{ user.email }}</p>
-            </ion-item>
-        </ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-avatar item-start>
+          <img [src]="user.photoURL">
+          </ion-avatar>
+          <h2>{{ user.displayName }}</h2>
+          <h3>{{ user.email }}</h3>
+        </ion-item>
+      </ion-list>
     </ion-header>
 
     <ion-content class="outer-content">

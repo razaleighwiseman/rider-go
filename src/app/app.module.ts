@@ -9,12 +9,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CreateBill } from '../pages/create-bill/create-bill';
 import { Login } from '../pages/login/login';
+import { EmailLoginPage } from '../pages/email-login/email-login';
 import { SignUp } from '../pages/sign-up/sign-up';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -35,6 +37,7 @@ export const firebaseConfig = {
     HomePage,
     CreateBill,
     Login,
+    EmailLoginPage,
     SignUp
   ],
   imports: [
@@ -51,12 +54,14 @@ export const firebaseConfig = {
     HomePage,
     CreateBill,
     Login,
+    EmailLoginPage,
     SignUp
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Facebook,
+    GooglePlus,
     GoogleMaps,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
